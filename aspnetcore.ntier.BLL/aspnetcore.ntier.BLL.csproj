@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="11.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\aspnetcore.ntier.DAL\aspnetcore.ntier.DAL.csproj" />
 		<ProjectReference Include="..\aspnetcore.ntier.DTO\aspnetcore.ntier.DTO.csproj" />
 		<ProjectReference Include="..\aspnetcore.ntier.Entity\aspnetcore.ntier.Entity.csproj" />
