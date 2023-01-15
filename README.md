@@ -12,7 +12,7 @@ Go into aspnetcore.ntier.DAL class library
 ```
 cd aspnetcore.ntier.DAL
 ```
-Add migrations
+Adding migrations(Please make sure proper versions of[.NET SDK](https://automapper.org/) and [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) tool has been installed)
 ```
 dotnet ef --startup-project ../aspnetcore.ntier.API migrations add InitialMigration --context AspNetCoreNTierDbContext
 ```
@@ -30,6 +30,9 @@ dotnet ef --startup-project ../aspnetcore.ntier.API database update InitialMigra
 - aspnetcore.ntier.IoC - Responsible for *dependency injection* it has ```DependencyInjection``` class and ```InjectDependencies``` method in it.
 - aspnetcore.ntier.Test - Used xUnit and Mock tools.
 - aspnetcore.ntier.Utility - Has *AutoMapperProfiles* (You can get detailed information about *Automapper* from [here](https://automapper.org/)) class in it.
+
+## Development process
+You can follow the steps during development from [here](https://github.com/aghayeffemin/aspnetcore.ntier/commits/master). I hope it will be helpful to you in order to understand the development process.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

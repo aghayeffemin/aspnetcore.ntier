@@ -340,9 +340,9 @@ ASALocalRun/
 healthchecksdb
 
 # EF Core Migrations
-aspnetcore-n-tier.DAL/Migrations/
+aspnetcore.ntier.DAL/Migrations/
 
 # SQLite Database files
-aspnetcore-n-tier.API/aspnetcorentier.db
-aspnetcore-n-tier.API/aspnetcorentier.db-shm
-aspnetcore-n-tier.API/aspnetcorentier.db-wal
+aspnetcore.ntier.API/aspnetcorentier.db
+aspnetcore.ntier.API/aspnetcorentier.db-shm
+aspnetcore.ntier.API/aspnetcorentier.db-wal
