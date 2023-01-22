@@ -26,7 +26,7 @@ namespace aspnetcore.ntier.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "Name", "Surname", "Username" },
-                values: new object[] { 1, "Doe", "johndoe", "John" });
+                values: new object[] { 1, "John", "Doe", "johndoe" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -8,6 +8,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="11.0.1" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.26.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.0" />
 	</ItemGroup>
 
 	<ItemGroup>

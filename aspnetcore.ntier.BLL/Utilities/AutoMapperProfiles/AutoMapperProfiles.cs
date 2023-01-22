@@ -12,6 +12,7 @@ public static class AutoMapperProfiles
         {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<User, UserToAddDTO>().ReverseMap();
+            CreateMap<User, UserToRegisterDTO>().ReverseMap();
         }
     }
 }
