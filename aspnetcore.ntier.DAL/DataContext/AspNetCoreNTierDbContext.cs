@@ -15,9 +15,10 @@ public class AspNetCoreNTierDbContext : DbContext
              new User
              {
                  UserId = 1,
-                 Username = "John",
-                 Name = "Doe",
-                 Surname = "johndoe",
+                 Username = "johndoe",
+                 Password = "123",
+                 Name = "John",
+                 Surname = "Doe",
              }
          );
     }

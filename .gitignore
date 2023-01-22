@@ -339,9 +339,6 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-# EF Core Migrations
-aspnetcore.ntier.DAL/Migrations/
-
 # SQLite Database files
 aspnetcore.ntier.API/aspnetcorentier.db
 aspnetcore.ntier.API/aspnetcorentier.db-shm
