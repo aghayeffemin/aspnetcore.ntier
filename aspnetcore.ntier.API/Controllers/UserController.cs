@@ -62,7 +62,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("updateuser")]
-    public async Task<IActionResult> UpdateUser(UserDTO userToUpdateDTO)
+    public async Task<IActionResult> UpdateUser(UserToUpdateDTO userToUpdateDTO)
     {
         try
         {

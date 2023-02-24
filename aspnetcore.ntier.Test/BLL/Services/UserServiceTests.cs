@@ -2,15 +2,15 @@
 using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.AutoMapperProfiles;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
+using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
-using aspnetcore.ntier.Entity.Entities;
 using AutoMapper;
 using Moq;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace aspnetcore.ntier.Test.UserServiceTests;
+namespace aspnetcore.ntier.Test.BLL.Services;
 
 public class UserServiceTests
 {
@@ -20,32 +20,32 @@ public class UserServiceTests
 
     private const int UserId = 5;
     private readonly User _userEntity;
-    private readonly UserDTO _userDTO;
     private readonly UserToAddDTO _userToAddDTO;
+    private readonly UserToUpdateDTO _userToUpdateDTO;
 
     public UserServiceTests()
     {
         _userEntity = new User()
         {
             UserId = UserId,
-            Username = "UserEntityUserName",
+            Username = "UserEntityUsername",
             Name = "UserEntityName",
-            Surname = "UserEntitySurName"
-        };
-
-        _userDTO = new UserDTO()
-        {
-            UserId = UserId,
-            Username = "UserDTOUserName",
-            Name = "UserDTOName",
-            Surname = "UserDTOSurName"
+            Surname = "UserEntitySurname"
         };
 
         _userToAddDTO = new UserToAddDTO()
         {
-            Username = "UserToAddDTOUserName",
+            Username = "UserToAddDTOUsername",
             Name = "UserToAddDTOName",
-            Surname = "UserToAddDTOSurName"
+            Surname = "UserToAddDTOSurname"
+        };
+
+        _userToUpdateDTO = new UserToUpdateDTO()
+        {
+            UserId = UserId,
+            Username = "UserToUpdateDTOUsername",
+            Name = "UserToUpdateDTOName",
+            Surname = "UserToUpdateDTOSurname"
         };
 
         _userRepository = new Mock<IUserRepository>();
@@ -62,13 +62,13 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task GetUsers_ReturnsUserList()
+    public async Task GetUsers_WhenSuccess_ReturnsUserDTOList()
     {
         //Arrange
         var userEntityList = new List<User>() { _userEntity, _userEntity };
 
         _userRepository
-            .Setup(repo => repo.GetList(null))
+            .Setup(repo => repo.GetList(null!))
             .ReturnsAsync(userEntityList);
 
         //Act
@@ -79,7 +79,7 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task GetUser_ReturnsUser()
+    public async Task GetUser_WhenSuccess_ReturnsUserDTOList()
     {
         //Act
         var result = await _userService.GetUser(UserId);
@@ -94,14 +94,14 @@ public class UserServiceTests
         //Arrange
         _userRepository
             .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
-            .ReturnsAsync((User)null);
+            .ReturnsAsync((User)null!);
 
         //Act & Assert
         await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.GetUser(UserId));
     }
 
     [Fact]
-    public async Task AddUser_ReturnsUser()
+    public async Task AddUser_WhenSuccess_AddsThenReturnsUserDTO()
     {
         //Arrange
         _userRepository
@@ -117,17 +117,18 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task UpdateUser_ReturnsUser()
+    public async Task UpdateUser_WhenSuccess_UpdatesThenReturnsUserDTO()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Update(It.IsAny<User>()))
+            .Setup(repo => repo.UpdateUser(It.IsAny<User>()))
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _userService.UpdateUser(_userDTO);
+        var result = await _userService.UpdateUser(_userToUpdateDTO);
 
         //Assert
+        Assert.IsType<UserDTO>(result);
         Assert.NotNull(result);
     }
 
@@ -137,14 +138,14 @@ public class UserServiceTests
         //Arrange
         _userRepository
             .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
-            .ReturnsAsync((User)null);
+            .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateUser(_userDTO));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateUser(_userToUpdateDTO));
     }
 
     [Fact]
-    public async Task DeleteUser_CallsRepositoryDelete()
+    public async Task DeleteUser_WhenSuccess_CallsRepositoryDelete()
     {
         //Act
         await _userService.DeleteUser(UserId);
@@ -159,7 +160,7 @@ public class UserServiceTests
         //Arrange
         _userRepository
             .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
-            .ReturnsAsync((User)null);
+            .ReturnsAsync((User)null!);
 
         //Act & Assert
         await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.DeleteUser(UserId));

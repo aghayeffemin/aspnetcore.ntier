@@ -1,4 +1,4 @@
-﻿using aspnetcore.ntier.Entity.Entities;
+﻿using aspnetcore.ntier.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace aspnetcore.ntier.DAL.DataContext;

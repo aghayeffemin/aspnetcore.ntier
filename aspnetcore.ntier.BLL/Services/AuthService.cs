@@ -1,7 +1,8 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
+using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
+using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
-using aspnetcore.ntier.Entity.Entities;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -26,27 +27,27 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    public async Task<UserDTO> Login(UserToLoginDTO userToLoginDTO)
+    public async Task<UserToReturnDTO> Login(UserToLoginDTO userToLoginDTO)
     {
         var user = await _userRepository.Get(
             u => u.Username == userToLoginDTO.Username.ToLower() && u.Password == userToLoginDTO.Password);
 
         if (user == null)
-            return null;
+            throw new UserNotFoundException();
 
-        var userToReturn = _mapper.Map<UserDTO>(user);
+        var userToReturn = _mapper.Map<UserToReturnDTO>(user);
         userToReturn.Token = GenerateToken(user.UserId, user.Username);
 
         return userToReturn;
     }
 
-    public async Task<UserDTO> Register(UserToRegisterDTO userToRegisterDTO)
+    public async Task<UserToReturnDTO> Register(UserToRegisterDTO userToRegisterDTO)
     {
         userToRegisterDTO.Username = userToRegisterDTO.Username.ToLower();
 
         var addedUser = await _userRepository.Add(_mapper.Map<User>(userToRegisterDTO));
 
-        var userToReturn = _mapper.Map<UserDTO>(addedUser);
+        var userToReturn = _mapper.Map<UserToReturnDTO>(addedUser);
         userToReturn.Token = GenerateToken(addedUser.UserId, addedUser.Username);
 
         return userToReturn;

@@ -1,8 +1,8 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
+using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
-using aspnetcore.ntier.Entity.Entities;
 using AutoMapper;
 
 namespace aspnetcore.ntier.BLL.Services;
@@ -44,7 +44,7 @@ public class UserService : IUserService
         return _mapper.Map<UserDTO>(addedUser);
     }
 
-    public async Task<UserDTO> UpdateUser(UserDTO userToUpdateDTO)
+    public async Task<UserDTO> UpdateUser(UserToUpdateDTO userToUpdateDTO)
     {
         userToUpdateDTO.Username = userToUpdateDTO.Username.ToLower();
         var user = await _userRepository.Get(x => x.UserId == userToUpdateDTO.UserId);
@@ -56,7 +56,7 @@ public class UserService : IUserService
 
         var userToUpdate = _mapper.Map<User>(userToUpdateDTO);
 
-        return _mapper.Map<UserDTO>(await _userRepository.Update(userToUpdate));
+        return _mapper.Map<UserDTO>(await _userRepository.UpdateUser(userToUpdate));
     }
 
     public async Task DeleteUser(int userId)

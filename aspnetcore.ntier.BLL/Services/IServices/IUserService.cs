@@ -7,6 +7,6 @@ public interface IUserService
     Task<List<UserDTO>> GetUsers();
     Task<UserDTO> GetUser(int userId);
     Task<UserDTO> AddUser(UserToAddDTO userToAddDTO);
-    Task<UserDTO> UpdateUser(UserDTO userToUpdateDTO);
+    Task<UserDTO> UpdateUser(UserToUpdateDTO userToUpdateDTO);
     Task DeleteUser(int userId);
 }

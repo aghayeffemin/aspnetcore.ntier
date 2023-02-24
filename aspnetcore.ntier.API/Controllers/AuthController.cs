@@ -1,4 +1,5 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
+using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
 using aspnetcore.ntier.DTO.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,10 +23,11 @@ public class AuthController : ControllerBase
         {
             var user = await _authService.Login(userToLoginDTO);
 
-            if (user == null)
-                return Unauthorized();
-
             return Ok(user);
+        }
+        catch (UserNotFoundException)
+        {
+            return Unauthorized();
         }
         catch (Exception)
         {

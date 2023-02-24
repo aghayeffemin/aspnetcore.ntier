@@ -21,17 +21,18 @@ dotnet ef --startup-project ../aspnetcore.ntier.API database update --context As
 
 - Non auth endpoints requires JWT token to be provided otherwise 401 response will be returned
 - So you have to login or register first in order to get the JWT token then add it to the header while sending a request
+  - It can be done by clicking lock icon next to the particular endpoint and pasting token in the textbox on swagger page
 - You can disable authentication for endpoints by removing ```Authorize``` attribute from the particular controller
 
 ## Layers
 
-- aspnetcore.ntier.API - Presentation Layer *.Net Core Web API project*.
+- aspnetcore.ntier.API - Presentation Layer is type of *.Net Core Web API project*.
 - aspnetcore.ntier.BLL - Business Logic Layer responsible for data exchange between DAL and Presentation Layer.
+  - It has Services, AutoMapperProfiles and CustomExceptions in it
 - aspnetcore.ntier.DAL - Data Access Layer responsible for interacting database. *Generic repositories* have been used.
-- aspnetcore.ntier.DTO - Data transfer objects.
-- aspnetcore.ntier.Entity - Database entities.
-- aspnetcore.ntier.IoC - Responsible for *dependency injection* it has ```DependencyInjection``` class and ```InjectDependencies``` method in it.
-- aspnetcore.ntier.Test - Used xUnit and Mock tools.
+  - Database context, repositories and database entity models are located in this class lib
+- aspnetcore.ntier.DTO - Data transfer objects are added here
+- aspnetcore.ntier.Test - It has unit tests. xUnit and Mock tools used for testing
 
 ## Development process
 

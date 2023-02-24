@@ -3,19 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.BLL", "aspnetcore.ntier.BLL\aspnetcore.ntier.BLL.csproj", "{21D121C1-9288-4E53-8090-F85B1C46B02E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore.ntier.BLL", "aspnetcore.ntier.BLL\aspnetcore.ntier.BLL.csproj", "{21D121C1-9288-4E53-8090-F85B1C46B02E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.DAL", "aspnetcore.ntier.DAL\aspnetcore.ntier.DAL.csproj", "{08378D6F-47CC-48B6-8819-FB5C2C016F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore.ntier.DAL", "aspnetcore.ntier.DAL\aspnetcore.ntier.DAL.csproj", "{08378D6F-47CC-48B6-8819-FB5C2C016F16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.DTO", "aspnetcore.ntier.DTO\aspnetcore.ntier.DTO.csproj", "{BF449856-DB2F-4F78-B5D4-7B73E4E5CC31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore.ntier.DTO", "aspnetcore.ntier.DTO\aspnetcore.ntier.DTO.csproj", "{BF449856-DB2F-4F78-B5D4-7B73E4E5CC31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.Entity", "aspnetcore.ntier.Entity\aspnetcore.ntier.Entity.csproj", "{3CF0F580-D4A7-4C9B-8ED1-295636090DC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore.ntier.Test", "aspnetcore.ntier.Test\aspnetcore.ntier.Test.csproj", "{5C5318E9-6AA8-42C6-ADD5-DD23053911D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.IoC", "aspnetcore.ntier.IoC\aspnetcore.ntier.IoC.csproj", "{CE3BD024-81D0-47CB-8DF0-C67739C441BD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.Test", "aspnetcore.ntier.Test\aspnetcore.ntier.Test.csproj", "{5C5318E9-6AA8-42C6-ADD5-DD23053911D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore.ntier.API", "aspnetcore.ntier.API\aspnetcore.ntier.API.csproj", "{6124A687-1354-4BB6-910C-42122A92D9FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore.ntier.API", "aspnetcore.ntier.API\aspnetcore.ntier.API.csproj", "{6124A687-1354-4BB6-910C-42122A92D9FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +31,6 @@ Global
 		{BF449856-DB2F-4F78-B5D4-7B73E4E5CC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF449856-DB2F-4F78-B5D4-7B73E4E5CC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF449856-DB2F-4F78-B5D4-7B73E4E5CC31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CF0F580-D4A7-4C9B-8ED1-295636090DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CF0F580-D4A7-4C9B-8ED1-295636090DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CF0F580-D4A7-4C9B-8ED1-295636090DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CF0F580-D4A7-4C9B-8ED1-295636090DC2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE3BD024-81D0-47CB-8DF0-C67739C441BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE3BD024-81D0-47CB-8DF0-C67739C441BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE3BD024-81D0-47CB-8DF0-C67739C441BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE3BD024-81D0-47CB-8DF0-C67739C441BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C5318E9-6AA8-42C6-ADD5-DD23053911D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C5318E9-6AA8-42C6-ADD5-DD23053911D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C5318E9-6AA8-42C6-ADD5-DD23053911D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
