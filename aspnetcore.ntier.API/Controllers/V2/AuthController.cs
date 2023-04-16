@@ -3,9 +3,10 @@ using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
 using aspnetcore.ntier.DTO.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-namespace aspnetcore.ntier.API.Controllers;
+namespace aspnetcore.ntier.API.Controllers.V2;
 
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("2")]
 [ApiController]
 public class AuthController : ControllerBase
 {
