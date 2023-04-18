@@ -2,6 +2,10 @@
 
 .NET Core N-Tier architecture Web Api sample project.
 
+## Give a Star ⭐️
+
+If this repository helped you please consider giving a star! Thanks!
+
 ## Setup
 
 - SQLite has been used as database
@@ -19,10 +23,17 @@ dotnet ef --startup-project ../aspnetcore.ntier.API database update --context As
 ```
 ## Authentication
 
-- Non auth endpoints requires JWT token to be provided otherwise 401 response will be returned
-- So you have to login or register first in order to get the JWT token then add it to the header while sending a request
-  - It can be done by clicking lock icon next to the particular endpoint and pasting token in the textbox on swagger page
+- Authentication has been added for version 2 endpoints.
+- Non auth endpoints require JWT token to be provided otherwise 401 response will be returned
+- So you have to login or register first in order to get the JWT token then add it to the header while sending a request. It can be done by:
+  - Clicking lock icon next to the particular endpoint and pasting token in the textbox on swagger page
+  - Adding token for the ```Authorization``` header of the request
 - You can disable authentication for endpoints by removing ```Authorize``` attribute from the particular controller
+
+## Versioning
+
+- URL versioning has been implemented and currently there are 2 versions.
+- Versions can be changed via Swagger page or by providing version number in the URL.
 
 ## Layers
 
@@ -42,6 +53,8 @@ You can follow the steps during development from the [commit list](https://githu
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## Show your support
+## Support
 
-Give a ⭐️ if this project helped you!
+If you found this project useful or interesting and would like to support my work you can support me. Thanks!
+
+<a href="https://www.buymeacoffee.com/aghayeffemin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="200"></a>
