@@ -43,7 +43,7 @@ dotnet ef --startup-project ../aspnetcore.ntier.API database update --context As
 - aspnetcore.ntier.DAL - Data Access Layer responsible for interacting database. *Generic repositories* have been used.
   - Database context, repositories and database entity models are located in this class lib
 - aspnetcore.ntier.DTO - Data transfer objects are added here
-- aspnetcore.ntier.Test - It has unit tests. xUnit and Mock tools used for testing
+- aspnetcore.ntier.Test - Unit and Integration tests are created here
 
 ## Development process
 
