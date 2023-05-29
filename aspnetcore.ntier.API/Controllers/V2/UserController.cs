@@ -20,11 +20,11 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("getusers")]
-    public async Task<IActionResult> GetUsers()
+    public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
     {
         try
         {
-            return Ok(await _userService.GetUsers());
+            return Ok(await _userService.GetUsersAsync(cancellationToken));
         }
         catch (Exception)
         {

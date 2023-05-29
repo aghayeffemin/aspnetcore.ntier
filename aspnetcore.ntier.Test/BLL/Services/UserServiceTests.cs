@@ -51,7 +51,7 @@ public class UserServiceTests
         _userRepository = new Mock<IUserRepository>();
 
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync(_userEntity);
 
         var myProfile = new AutoMapperProfiles.AutoMapperProfile();
@@ -62,54 +62,54 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task GetUsers_WhenSuccess_ReturnsUserDTOList()
+    public async Task GetUsersAsync_WhenSuccess_ReturnsUserDTOList()
     {
         //Arrange
         var userEntityList = new List<User>() { _userEntity, _userEntity };
 
         _userRepository
-            .Setup(repo => repo.GetList(null!))
+            .Setup(repo => repo.GetListAsync(null!, CancellationToken.None))
             .ReturnsAsync(userEntityList);
 
         //Act
-        var result = await _userService.GetUsers();
+        var result = await _userService.GetUsersAsync();
 
         //Assert
         Assert.Equal(2, result.Count);
     }
 
     [Fact]
-    public async Task GetUser_WhenSuccess_ReturnsUserDTOList()
+    public async Task GetUserAsync_WhenSuccess_ReturnsUserDTOList()
     {
         //Act
-        var result = await _userService.GetUser(UserId);
+        var result = await _userService.GetUserAsync(UserId);
 
         //Assert
         Assert.NotNull(result);
     }
 
     [Fact]
-    public async Task GetUser_WhenUserDoesNotExist_ThrowsUserNotFoundException()
+    public async Task GetUserAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.GetUser(UserId));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.GetUserAsync(UserId));
     }
 
     [Fact]
-    public async Task AddUser_WhenSuccess_AddsThenReturnsUserDTO()
+    public async Task AddUserAsync_WhenSuccess_AddsThenReturnsUserDTO()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Add(It.IsAny<User>()))
+            .Setup(repo => repo.AddAsync(It.IsAny<User>()))
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _userService.AddUser(_userToAddDTO);
+        var result = await _userService.AddUserAsync(_userToAddDTO);
 
         //Assert
         Assert.IsType<UserDTO>(result);
@@ -117,15 +117,15 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task UpdateUser_WhenSuccess_UpdatesThenReturnsUserDTO()
+    public async Task UpdateUserAsync_WhenSuccess_UpdatesThenReturnsUserDTO()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.UpdateUser(It.IsAny<User>()))
+            .Setup(repo => repo.UpdateUserAsync(It.IsAny<User>()))
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _userService.UpdateUser(_userToUpdateDTO);
+        var result = await _userService.UpdateUserAsync(_userToUpdateDTO);
 
         //Assert
         Assert.IsType<UserDTO>(result);
@@ -133,36 +133,36 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task UpdateUser_WhenUserDoesNotExist_ThrowsUserNotFoundException()
+    public async Task UpdateUserAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateUser(_userToUpdateDTO));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateUserAsync(_userToUpdateDTO));
     }
 
     [Fact]
-    public async Task DeleteUser_WhenSuccess_CallsRepositoryDelete()
+    public async Task DeleteUserAsync_WhenSuccess_CallsRepositoryDelete()
     {
         //Act
-        await _userService.DeleteUser(UserId);
+        await _userService.DeleteUserAsync(UserId);
 
         //Assert
-        _userRepository.Verify(x => x.Delete(It.IsAny<User>()), Times.Once());
+        _userRepository.Verify(x => x.DeleteAsync(It.IsAny<User>()), Times.Once());
     }
 
     [Fact]
-    public async Task DeleteUser_WhenUserDoesNotExist_ThrowsUserNotFoundException()
+    public async Task DeleteUserAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.DeleteUser(UserId));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.DeleteUserAsync(UserId));
     }
 }

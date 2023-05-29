@@ -4,6 +4,6 @@ namespace aspnetcore.ntier.BLL.Services.IServices;
 
 public interface IAuthService
 {
-    Task<UserToReturnDTO> Login(UserToLoginDTO userToLoginDTO);
-    Task<UserToReturnDTO> Register(UserToRegisterDTO userToRegisterDTO);
+    Task<UserToReturnDTO> LoginAsync(UserToLoginDTO userToLoginDTO);
+    Task<UserToReturnDTO> RegisterAsync(UserToRegisterDTO userToRegisterDTO);
 }

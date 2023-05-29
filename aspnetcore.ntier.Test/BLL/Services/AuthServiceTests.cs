@@ -50,7 +50,7 @@ public class AuthServiceTests
         _userRepository = new Mock<IUserRepository>();
 
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync(_userEntity);
 
         var myProfile = new AutoMapperProfiles.AutoMapperProfile();
@@ -70,15 +70,15 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task Login_WhenSuccess_ReturnsUserToReturnDTOWithToken()
+    public async Task LoginAsync_WhenSuccess_ReturnsUserToReturnDTOWithToken()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _authService.Login(_userToLoginDTO);
+        var result = await _authService.LoginAsync(_userToLoginDTO);
 
         //Assert
         Assert.IsType<UserToReturnDTO>(result);
@@ -87,27 +87,27 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task Login_WhenUserDoesNotExist_ThrowsUserNotFoundException()
+    public async Task LoginAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Get(It.IsAny<Expression<Func<User, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _authService.Login(_userToLoginDTO));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _authService.LoginAsync(_userToLoginDTO));
     }
 
     [Fact]
-    public async Task Register_WhenSuccess_RegistersUserThenReturnsUserToReturnDTOWithToken()
+    public async Task RegisterAsync_WhenSuccess_RegistersUserThenReturnsUserToReturnDTOWithToken()
     {
         //Arrange
         _userRepository
-            .Setup(repo => repo.Add(It.IsAny<User>()))
+            .Setup(repo => repo.AddAsync(It.IsAny<User>()))
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _authService.Register(_userToRegisterDTO);
+        var result = await _authService.RegisterAsync(_userToRegisterDTO);
 
         //Assert
         Assert.IsType<UserToReturnDTO>(result);

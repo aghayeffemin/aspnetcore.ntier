@@ -17,16 +17,16 @@ public class UserService : IUserService
         _mapper = mapper;
     }
 
-    public async Task<List<UserDTO>> GetUsers()
+    public async Task<List<UserDTO>> GetUsersAsync(CancellationToken cancellationToken = default)
     {
-        var usersToReturn = await _userRepository.GetList();
+        var usersToReturn = await _userRepository.GetListAsync(cancellationToken: cancellationToken);
 
         return _mapper.Map<List<UserDTO>>(usersToReturn);
     }
 
-    public async Task<UserDTO> GetUser(int userId)
+    public async Task<UserDTO> GetUserAsync(int userId, CancellationToken cancellationToken = default)
     {
-        var userToReturn = await _userRepository.Get(x => x.UserId == userId);
+        var userToReturn = await _userRepository.GetAsync(x => x.UserId == userId, cancellationToken);
 
         if (userToReturn is null)
         {
@@ -36,18 +36,18 @@ public class UserService : IUserService
         return _mapper.Map<UserDTO>(userToReturn);
     }
 
-    public async Task<UserDTO> AddUser(UserToAddDTO userToAddDTO)
+    public async Task<UserDTO> AddUserAsync(UserToAddDTO userToAddDTO)
     {
         userToAddDTO.Username = userToAddDTO.Username.ToLower();
-        var addedUser = await _userRepository.Add(_mapper.Map<User>(userToAddDTO));
+        var addedUser = await _userRepository.AddAsync(_mapper.Map<User>(userToAddDTO));
 
         return _mapper.Map<UserDTO>(addedUser);
     }
 
-    public async Task<UserDTO> UpdateUser(UserToUpdateDTO userToUpdateDTO)
+    public async Task<UserDTO> UpdateUserAsync(UserToUpdateDTO userToUpdateDTO)
     {
         userToUpdateDTO.Username = userToUpdateDTO.Username.ToLower();
-        var user = await _userRepository.Get(x => x.UserId == userToUpdateDTO.UserId);
+        var user = await _userRepository.GetAsync(x => x.UserId == userToUpdateDTO.UserId);
 
         if (user is null)
         {
@@ -56,18 +56,18 @@ public class UserService : IUserService
 
         var userToUpdate = _mapper.Map<User>(userToUpdateDTO);
 
-        return _mapper.Map<UserDTO>(await _userRepository.UpdateUser(userToUpdate));
+        return _mapper.Map<UserDTO>(await _userRepository.UpdateUserAsync(userToUpdate));
     }
 
-    public async Task DeleteUser(int userId)
+    public async Task DeleteUserAsync(int userId)
     {
-        var userToDelete = await _userRepository.Get(x => x.UserId == userId);
+        var userToDelete = await _userRepository.GetAsync(x => x.UserId == userId);
 
         if (userToDelete is null)
         {
             throw new UserNotFoundException();
         }
 
-        await _userRepository.Delete(userToDelete);
+        await _userRepository.DeleteAsync(userToDelete);
     }
 }

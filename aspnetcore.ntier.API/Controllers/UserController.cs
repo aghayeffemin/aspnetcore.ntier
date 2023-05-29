@@ -22,7 +22,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(await _userService.GetUsers());
+            return Ok(await _userService.GetUsersAsync());
         }
         catch (Exception)
         {
@@ -31,11 +31,11 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("getuser")]
-    public async Task<IActionResult> GetUser(int userId)
+    public async Task<IActionResult> GetUser(int userId, CancellationToken cancellationToken)
     {
         try
         {
-            return Ok(await _userService.GetUser(userId));
+            return Ok(await _userService.GetUserAsync(userId, cancellationToken));
         }
         catch (UserNotFoundException)
         {
@@ -52,7 +52,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(await _userService.AddUser(userToAddDTO));
+            return Ok(await _userService.AddUserAsync(userToAddDTO));
         }
         catch (Exception)
         {
@@ -65,7 +65,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(await _userService.UpdateUser(userToUpdateDTO));
+            return Ok(await _userService.UpdateUserAsync(userToUpdateDTO));
         }
         catch (UserNotFoundException)
         {
@@ -82,7 +82,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            await _userService.DeleteUser(userId);
+            await _userService.DeleteUserAsync(userId);
             return Ok();
         }
         catch (UserNotFoundException)

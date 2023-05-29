@@ -12,7 +12,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         _aspNetCoreNTierDbContext = aspNetCoreNTierDbContext;
     }
 
-    public async Task<User> UpdateUser(User user)
+    public async Task<User> UpdateUserAsync(User user)
     {
         _ = _aspNetCoreNTierDbContext.Update(user);
 

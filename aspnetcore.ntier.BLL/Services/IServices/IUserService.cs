@@ -4,9 +4,9 @@ namespace aspnetcore.ntier.BLL.Services.IServices;
 
 public interface IUserService
 {
-    Task<List<UserDTO>> GetUsers();
-    Task<UserDTO> GetUser(int userId);
-    Task<UserDTO> AddUser(UserToAddDTO userToAddDTO);
-    Task<UserDTO> UpdateUser(UserToUpdateDTO userToUpdateDTO);
-    Task DeleteUser(int userId);
+    Task<List<UserDTO>> GetUsersAsync(CancellationToken cancellationToken = default);
+    Task<UserDTO> GetUserAsync(int userId, CancellationToken cancellationToken = default);
+    Task<UserDTO> AddUserAsync(UserToAddDTO userToAddDTO);
+    Task<UserDTO> UpdateUserAsync(UserToUpdateDTO userToUpdateDTO);
+    Task DeleteUserAsync(int userId);
 }

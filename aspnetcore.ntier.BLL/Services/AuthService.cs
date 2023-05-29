@@ -27,9 +27,9 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    public async Task<UserToReturnDTO> Login(UserToLoginDTO userToLoginDTO)
+    public async Task<UserToReturnDTO> LoginAsync(UserToLoginDTO userToLoginDTO)
     {
-        var user = await _userRepository.Get(
+        var user = await _userRepository.GetAsync(
             u => u.Username == userToLoginDTO.Username.ToLower() && u.Password == userToLoginDTO.Password);
 
         if (user == null)
@@ -41,11 +41,11 @@ public class AuthService : IAuthService
         return userToReturn;
     }
 
-    public async Task<UserToReturnDTO> Register(UserToRegisterDTO userToRegisterDTO)
+    public async Task<UserToReturnDTO> RegisterAsync(UserToRegisterDTO userToRegisterDTO)
     {
         userToRegisterDTO.Username = userToRegisterDTO.Username.ToLower();
 
-        var addedUser = await _userRepository.Add(_mapper.Map<User>(userToRegisterDTO));
+        var addedUser = await _userRepository.AddAsync(_mapper.Map<User>(userToRegisterDTO));
 
         var userToReturn = _mapper.Map<UserToReturnDTO>(addedUser);
         userToReturn.Token = GenerateToken(addedUser.UserId, addedUser.Username);

@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var user = await _authService.Login(userToLoginDTO);
+            var user = await _authService.LoginAsync(userToLoginDTO);
 
             return Ok(user);
         }
@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
     {
         try
         {
-            return Ok(await _authService.Register(userToRegisterDTO));
+            return Ok(await _authService.RegisterAsync(userToRegisterDTO));
         }
         catch (Exception)
         {

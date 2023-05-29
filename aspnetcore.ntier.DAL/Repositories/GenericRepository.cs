@@ -13,44 +13,44 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         _aspNetCoreNTierDbContext = aspNetCoreNTierDbContext;
     }
 
-    public async Task<TEntity> Add(TEntity entity)
+    public async Task<TEntity> AddAsync(TEntity entity)
     {
         await _aspNetCoreNTierDbContext.AddAsync(entity);
         await _aspNetCoreNTierDbContext.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<List<TEntity>> AddRange(List<TEntity> entity)
+    public async Task<List<TEntity>> AddRangeAsync(List<TEntity> entity)
     {
         await _aspNetCoreNTierDbContext.AddRangeAsync(entity);
         await _aspNetCoreNTierDbContext.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<int> Delete(TEntity entity)
+    public async Task<int> DeleteAsync(TEntity entity)
     {
         _ = _aspNetCoreNTierDbContext.Remove(entity);
         return await _aspNetCoreNTierDbContext.SaveChangesAsync();
     }
 
-    public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
+    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter = null, CancellationToken cancellationToken = default)
     {
-        return await _aspNetCoreNTierDbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(filter);
+        return await _aspNetCoreNTierDbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(filter, cancellationToken);
     }
 
-    public async Task<List<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
+    public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null, CancellationToken cancellationToken = default)
     {
-        return await (filter == null ? _aspNetCoreNTierDbContext.Set<TEntity>().ToListAsync() : _aspNetCoreNTierDbContext.Set<TEntity>().Where(filter).ToListAsync());
+        return await (filter == null ? _aspNetCoreNTierDbContext.Set<TEntity>().ToListAsync(cancellationToken) : _aspNetCoreNTierDbContext.Set<TEntity>().Where(filter).ToListAsync(cancellationToken));
     }
 
-    public async Task<TEntity> Update(TEntity entity)
+    public async Task<TEntity> UpdateAsync(TEntity entity)
     {
         _ = _aspNetCoreNTierDbContext.Update(entity);
         await _aspNetCoreNTierDbContext.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<List<TEntity>> UpdateRange(List<TEntity> entity)
+    public async Task<List<TEntity>> UpdateRangeAsync(List<TEntity> entity)
     {
         _aspNetCoreNTierDbContext.UpdateRange(entity);
         await _aspNetCoreNTierDbContext.SaveChangesAsync();
