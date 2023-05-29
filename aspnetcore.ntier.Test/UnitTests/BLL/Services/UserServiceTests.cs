@@ -10,7 +10,7 @@ using Moq;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace aspnetcore.ntier.Test.BLL.Services;
+namespace aspnetcore.ntier.Test.UnitTests.BLL.Services;
 
 public class UserServiceTests
 {

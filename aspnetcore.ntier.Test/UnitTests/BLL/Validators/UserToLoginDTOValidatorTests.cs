@@ -3,7 +3,7 @@ using aspnetcore.ntier.DTO.DTOs;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace aspnetcore.ntier.Test.BLL.Validators;
+namespace aspnetcore.ntier.Test.UnitTests.BLL.Validators;
 
 public class UserToLoginDTOValidatorTests
 {
