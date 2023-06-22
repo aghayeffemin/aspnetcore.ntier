@@ -6,6 +6,7 @@ using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Linq.Expressions;
 using Xunit;
@@ -16,6 +17,7 @@ public class UserServiceTests
 {
     private readonly IUserService _userService;
     private readonly Mock<IUserRepository> _userRepository;
+    private readonly Mock<ILogger<UserService>> _logger;
     private readonly IMapper _mapper;
 
     private const int UserId = 5;
@@ -54,11 +56,13 @@ public class UserServiceTests
             .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync(_userEntity);
 
+        _logger = new Mock<ILogger<UserService>>();
+
         var myProfile = new AutoMapperProfiles.AutoMapperProfile();
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
         _mapper = new Mapper(configuration);
 
-        _userService = new UserService(_userRepository.Object, _mapper);
+        _userService = new UserService(_userRepository.Object, _mapper, _logger.Object);
     }
 
     [Fact]

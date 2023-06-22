@@ -343,3 +343,6 @@ healthchecksdb
 aspnetcore.ntier.API/aspnetcorentier.db
 aspnetcore.ntier.API/aspnetcorentier.db-shm
 aspnetcore.ntier.API/aspnetcorentier.db-wal
+
+#logs folder
+logs/

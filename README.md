@@ -12,7 +12,7 @@ If this repository helped you please consider giving a star! Thanks!
 - You can change connection string from *appsettings.json* within *aspnetcore.ntier.API*
 - Apply database migrations to create the tables. From a command line :
 
-Go into aspnetcore.ntier.DAL class library. Please make sure proper versions of[.NET SDK](https://automapper.org/) and [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) tool has been installed
+Go into aspnetcore.ntier.DAL class library. Please make sure proper versions of [.NET SDK](https://automapper.org/) and [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) tool has been installed
 ```
 cd aspnetcore.ntier.DAL
 ```
@@ -34,6 +34,14 @@ dotnet ef --startup-project ../aspnetcore.ntier.API database update --context As
 
 - URL versioning has been implemented and currently there are 2 versions.
 - Versions can be changed via Swagger page or by providing version number in the URL.
+
+## Logging
+
+- Structured logging using [Serilog](https://serilog.net/) has been implemented.
+- Currently logs are being added to file and console. 
+- You can change or find the settings in *appsettings.json*.
+- In *UserService* there examples of formatting the log message or using different levels of logging
+- Logging will be improved over time.
 
 ## Layers
 
