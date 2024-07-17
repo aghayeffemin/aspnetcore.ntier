@@ -48,4 +48,17 @@ public class AuthController : ControllerBase
             return BadRequest("Something went wrong");
         }
     }
+
+    [HttpPost("refresh")]
+    public IActionResult RefreshToken(RefreshTokenDTO refreshTokenDTO)
+    {
+        try
+        {
+            return Ok(_authService.RefreshToken(refreshTokenDTO));
+        }
+        catch (Exception)
+        {
+            return BadRequest("Something went wrong");
+        }
+    }
 }

@@ -10,12 +10,22 @@
     }
   },
   "profiles": {
-    "aspnetcore.ntier.API": {
+    "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7027;http://localhost:5297",
+      "applicationUrl": "http://localhost:5297",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7027",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
