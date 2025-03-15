@@ -10,17 +10,9 @@ If this repository helped you please consider giving a star! Thanks!
 
 - SQLite has been used as database
 - You can change connection string from *appsettings.json* within *aspnetcore.ntier.API*
-- Apply database migrations to create the tables. From a command line :
+- Make sure proper versions of [.NET SDK](https://automapper.org/) and [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) tool are installed
+- Run `aspnetcore.ntier.API` project to start the application
 
-Go into aspnetcore.ntier.DAL class library. Please make sure proper versions of [.NET SDK](https://automapper.org/) and [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) tool has been installed
-```
-cd aspnetcore.ntier.DAL
-```
-Apply database changes.
-If you are using SQLite then database file with .db extension should be created inside aspnetcore.ntier.API project
-```
-dotnet ef --startup-project ../aspnetcore.ntier.API database update --context AspNetCoreNTierDbContext
-```
 ## Authentication
 
 - Authentication has been added for version 2 endpoints.
