@@ -3,10 +3,12 @@ using aspnetcore.ntier.BLL.Utilities.Settings;
 using aspnetcore.ntier.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
+using aspnetcore.ntier.DAL.DataContext;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +62,12 @@ app.UseSwaggerUI(c =>
         c.SwaggerEndpoint($"../swagger/{description.GroupName}/swagger.json", description.GroupName.ToString());
     }
 });
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AspNetCoreNTierDbContext>();
+    dbContext.Database.Migrate();
+}
 
 app.Run();
 
