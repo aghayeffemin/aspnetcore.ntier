@@ -10,15 +10,18 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add configuration
+var jwtConfigSection = builder.Configuration.GetSection(nameof(JwtSettings));
+builder.Services.Configure<JwtSettings>(jwtConfigSection);
 
+// Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var jwtSettings = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtSettings>>().Value;
+        var jwtSettings = jwtConfigSection.Get<JwtSettings>();
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -29,7 +32,6 @@ builder.Services
         };
     });
 
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 builder.Services.RegisterDALDependencies(builder.Configuration);
 builder.Services.RegisterBLLDependencies(builder.Configuration);
 
