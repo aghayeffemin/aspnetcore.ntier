@@ -58,20 +58,14 @@ public class AuthServiceTests
         var myProfile = new AutoMapperProfiles.AutoMapperProfile();
         var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
         _mapper = new Mapper(mapperConfiguration);
-
-        var configurationSectionMock = new Mock<IConfigurationSection>();
-        var configurationMock = new Mock<IConfiguration>();
-        configurationSectionMock
-           .Setup(x => x.Value)
-           .Returns("test");
         var jwtSettingsMock = new JwtSettings
         {
             AccessTokenSecret = "Superb token for testing purposes", RefreshTokenSecret = "Superb token for testing purposes", AccessTokenExpirationMinutes = 1,
             RefreshTokenExpirationMinutes = 1
         };
-var options = Options.Create(jwtSettingsMock);
+var jwtOptions = Options.Create(jwtSettingsMock);
 
-        _authService = new AuthService(_userRepository.Object, _mapper, options);
+        _authService = new AuthService(_userRepository.Object, _mapper, jwtOptions);
     }
 
     [Fact]
