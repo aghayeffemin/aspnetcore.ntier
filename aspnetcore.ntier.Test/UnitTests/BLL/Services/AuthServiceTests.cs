@@ -9,6 +9,8 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using System.Linq.Expressions;
+using aspnetcore.ntier.BLL.Utilities.Settings;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace aspnetcore.ntier.Test.UnitTests.BLL.Services;
@@ -56,17 +58,14 @@ public class AuthServiceTests
         var myProfile = new AutoMapperProfiles.AutoMapperProfile();
         var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
         _mapper = new Mapper(mapperConfiguration);
+        var jwtSettingsMock = new JwtSettings
+        {
+            AccessTokenSecret = "Superb token for testing purposes", RefreshTokenSecret = "Superb token for testing purposes", AccessTokenExpirationMinutes = 1,
+            RefreshTokenExpirationMinutes = 1
+        };
+var jwtOptions = Options.Create(jwtSettingsMock);
 
-        var configurationSectionMock = new Mock<IConfigurationSection>();
-        var configurationMock = new Mock<IConfiguration>();
-        configurationSectionMock
-           .Setup(x => x.Value)
-           .Returns("Superb token for testing purposes");
-        configurationMock
-           .Setup(x => x.GetSection("AppSettings:Token"))
-           .Returns(configurationSectionMock.Object);
-
-        _authService = new AuthService(_userRepository.Object, _mapper, configurationMock.Object);
+        _authService = new AuthService(_userRepository.Object, _mapper, jwtOptions);
     }
 
     [Fact]
