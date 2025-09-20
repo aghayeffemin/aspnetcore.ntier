@@ -2,15 +2,14 @@
 using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.AutoMapperProfiles;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
+using aspnetcore.ntier.BLL.Utilities.Settings;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
 using AutoMapper;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Moq;
 using System.Linq.Expressions;
-using aspnetcore.ntier.BLL.Utilities.Settings;
-using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace aspnetcore.ntier.Test.UnitTests.BLL.Services;
@@ -60,10 +59,12 @@ public class AuthServiceTests
         _mapper = new Mapper(mapperConfiguration);
         var jwtSettingsMock = new JwtSettings
         {
-            AccessTokenSecret = "Superb token for testing purposes", RefreshTokenSecret = "Superb token for testing purposes", AccessTokenExpirationMinutes = 1,
+            AccessTokenSecret = "edffbf20-5c7d-4bd1-8752-f4bb2eb8e41fedffbf20-5c7d-4bd1-8752-f4bb2eb8e41f",
+            RefreshTokenSecret = "01433849-3cf6-4b57-aad8-21513b29459e01433849-3cf6-4b57-aad8-21513b29459e",
+            AccessTokenExpirationMinutes = 1,
             RefreshTokenExpirationMinutes = 1
         };
-var jwtOptions = Options.Create(jwtSettingsMock);
+        var jwtOptions = Options.Create(jwtSettingsMock);
 
         _authService = new AuthService(_userRepository.Object, _mapper, jwtOptions);
     }
