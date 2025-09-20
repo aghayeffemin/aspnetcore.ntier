@@ -1,6 +1,6 @@
-﻿namespace aspnetcore.ntier.DTO.DTOs;
+﻿namespace aspnetcore.ntier.DTO.Dtos;
 
-public class RefreshTokenDTO
+public class RefreshTokenDto
 {
-    public string RefreshToken { get; set; }
+    public required string RefreshToken { get; set; }
 }

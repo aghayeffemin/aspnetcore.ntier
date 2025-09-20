@@ -1,7 +1,6 @@
 ﻿using aspnetcore.ntier.DAL.DataContext;
 using aspnetcore.ntier.Test.Helpers;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using System.Net;
 using Xunit;
 
@@ -11,8 +10,6 @@ public class UserControllerTests : IClassFixture<CustomWebApplicationFactory<Pro
 {
     private readonly HttpClient _client;
     private readonly CustomWebApplicationFactory<Program> _factory;
-
-    private const string baseURL = "https://localhost:44338/";
 
     public UserControllerTests(CustomWebApplicationFactory<Program> factory)
     {
@@ -28,7 +25,7 @@ public class UserControllerTests : IClassFixture<CustomWebApplicationFactory<Pro
         {
             var scopedServices = scope.ServiceProvider;
             var db = scopedServices.GetRequiredService<AspNetCoreNTierDbContext>();
-            db.Database.EnsureCreated();
+            await db.Database.EnsureCreatedAsync();
         }
 
         // Act

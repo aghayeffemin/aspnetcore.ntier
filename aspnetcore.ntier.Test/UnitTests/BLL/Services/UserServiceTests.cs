@@ -4,7 +4,7 @@ using aspnetcore.ntier.BLL.Utilities.AutoMapperProfiles;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -22,8 +22,8 @@ public class UserServiceTests
 
     private const int UserId = 5;
     private readonly User _userEntity;
-    private readonly UserToAddDTO _userToAddDTO;
-    private readonly UserToUpdateDTO _userToUpdateDTO;
+    private readonly UserToAddDto _userToAddDto;
+    private readonly UserToUpdateDto _userToUpdateDto;
 
     public UserServiceTests()
     {
@@ -32,22 +32,24 @@ public class UserServiceTests
             UserId = UserId,
             Username = "UserEntityUsername",
             Name = "UserEntityName",
-            Surname = "UserEntitySurname"
+            Surname = "UserEntitySurname",
+            Password = "UserEntityPassword"
         };
 
-        _userToAddDTO = new UserToAddDTO()
+        _userToAddDto = new UserToAddDto()
         {
-            Username = "UserToAddDTOUsername",
-            Name = "UserToAddDTOName",
-            Surname = "UserToAddDTOSurname"
+            Username = "UserToAddDtoUsername",
+            Name = "UserToAddDtoName",
+            Surname = "UserToAddDtoSurname",
+            Password = "UserEntityPassword"
         };
 
-        _userToUpdateDTO = new UserToUpdateDTO()
+        _userToUpdateDto = new UserToUpdateDto()
         {
             UserId = UserId,
-            Username = "UserToUpdateDTOUsername",
-            Name = "UserToUpdateDTOName",
-            Surname = "UserToUpdateDTOSurname"
+            Username = "UserToUpdateDtoUsername",
+            Name = "UserToUpdateDtoName",
+            Surname = "UserToUpdateDtoSurname"
         };
 
         _userRepository = new Mock<IUserRepository>();
@@ -66,7 +68,7 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task GetUsersAsync_WhenSuccess_ReturnsUserDTOList()
+    public async Task GetUsersAsync_WhenSuccess_ReturnsUserDtoList()
     {
         //Arrange
         var userEntityList = new List<User>() { _userEntity, _userEntity };
@@ -83,7 +85,7 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task GetUserAsync_WhenSuccess_ReturnsUserDTOList()
+    public async Task GetUserAsync_WhenSuccess_ReturnsUserDtoList()
     {
         //Act
         var result = await _userService.GetUserAsync(UserId);
@@ -105,7 +107,7 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task AddUserAsync_WhenSuccess_AddsThenReturnsUserDTO()
+    public async Task AddUserAsync_WhenSuccess_AddsThenReturnsUserDto()
     {
         //Arrange
         _userRepository
@@ -113,15 +115,15 @@ public class UserServiceTests
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _userService.AddUserAsync(_userToAddDTO);
+        var result = await _userService.AddUserAsync(_userToAddDto);
 
         //Assert
-        Assert.IsType<UserDTO>(result);
+        Assert.IsType<UserDto>(result);
         Assert.Equal(_userEntity.UserId, result.UserId);
     }
 
     [Fact]
-    public async Task UpdateUserAsync_WhenSuccess_UpdatesThenReturnsUserDTO()
+    public async Task UpdateUserAsync_WhenSuccess_UpdatesThenReturnsUserDto()
     {
         //Arrange
         _userRepository
@@ -129,10 +131,10 @@ public class UserServiceTests
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _userService.UpdateUserAsync(_userToUpdateDTO);
+        var result = await _userService.UpdateUserAsync(_userToUpdateDto);
 
         //Assert
-        Assert.IsType<UserDTO>(result);
+        Assert.IsType<UserDto>(result);
         Assert.NotNull(result);
     }
 
@@ -145,7 +147,7 @@ public class UserServiceTests
             .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateUserAsync(_userToUpdateDTO));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateUserAsync(_userToUpdateDto));
     }
 
     [Fact]

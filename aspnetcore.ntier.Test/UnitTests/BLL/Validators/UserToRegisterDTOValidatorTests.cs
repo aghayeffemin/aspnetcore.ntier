@@ -1,17 +1,17 @@
 ﻿using aspnetcore.ntier.BLL.Validators;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using FluentValidation.TestHelper;
 using Xunit;
 
 namespace aspnetcore.ntier.Test.UnitTests.BLL.Validators;
 
-public class UserToRegisterDTOValidatorTests
+public class UserToRegisterDtoValidatorTests
 {
-    private readonly UserToRegisterDTOValidator _userToRegisterDTOValidator;
+    private readonly UserToRegisterDtoValidator _userToRegisterDtoValidator;
 
-    public UserToRegisterDTOValidatorTests()
+    public UserToRegisterDtoValidatorTests()
     {
-        _userToRegisterDTOValidator = new UserToRegisterDTOValidator();
+        _userToRegisterDtoValidator = new UserToRegisterDtoValidator();
     }
 
     [Theory]
@@ -20,7 +20,7 @@ public class UserToRegisterDTOValidatorTests
     [InlineData("", "password")]
     public void Validate_WhenUsernameOrPasswordOrBothEmpty_ThrowsValidationError(string username, string password)
     {
-        var userToRegisterDTO = new UserToRegisterDTO
+        var userToRegisterDto = new UserToRegisterDto
         {
             Username = username,
             Password = password,
@@ -28,14 +28,14 @@ public class UserToRegisterDTOValidatorTests
             Surname = ""
         };
 
-        var result = _userToRegisterDTOValidator.TestValidate(userToRegisterDTO);
+        var result = _userToRegisterDtoValidator.TestValidate(userToRegisterDto);
         result.ShouldHaveAnyValidationError();
     }
 
     [Fact]
     public void Validate_WhenUsernameAndPasswordNotEmpty_ShouldNotThrowValidationError()
     {
-        var userToRegisterDTO = new UserToRegisterDTO
+        var userToRegisterDto = new UserToRegisterDto
         {
             Username = "username",
             Password = "password",
@@ -43,7 +43,7 @@ public class UserToRegisterDTOValidatorTests
             Surname = ""
         };
 
-        var result = _userToRegisterDTOValidator.TestValidate(userToRegisterDTO);
+        var result = _userToRegisterDtoValidator.TestValidate(userToRegisterDto);
         result.ShouldNotHaveAnyValidationErrors();
     }
 }

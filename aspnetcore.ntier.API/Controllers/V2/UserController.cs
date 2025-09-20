@@ -1,6 +1,4 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
-using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
-using aspnetcore.ntier.DTO.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -23,8 +23,8 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
 
         services.AddFluentValidationAutoValidation();
-        services.AddValidatorsFromAssemblyContaining<UserToLoginDTOValidator>();
-        services.AddValidatorsFromAssemblyContaining<UserToRegisterDTOValidator>();
+        services.AddValidatorsFromAssemblyContaining<UserToLoginDtoValidator>();
+        services.AddValidatorsFromAssemblyContaining<UserToRegisterDtoValidator>();
 
         #region Versioning
 

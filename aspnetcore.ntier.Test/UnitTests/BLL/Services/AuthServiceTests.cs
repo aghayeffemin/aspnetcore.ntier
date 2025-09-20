@@ -5,7 +5,7 @@ using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
 using aspnetcore.ntier.BLL.Utilities.Settings;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -22,8 +22,8 @@ public class AuthServiceTests
 
     private const int UserId = 5;
     private readonly User _userEntity;
-    private readonly UserToLoginDTO _userToLoginDTO;
-    private readonly UserToRegisterDTO _userToRegisterDTO;
+    private readonly UserToLoginDto _userToLoginDto;
+    private readonly UserToRegisterDto _userToRegisterDto;
 
     public AuthServiceTests()
     {
@@ -32,20 +32,22 @@ public class AuthServiceTests
             UserId = UserId,
             Username = "UserEntityUsername",
             Name = "UserEntityName",
-            Surname = "UserEntitySurname"
+            Surname = "UserEntitySurname",
+            Password = "UserEntityPassword"
         };
 
-        _userToLoginDTO = new UserToLoginDTO()
+        _userToLoginDto = new UserToLoginDto()
         {
-            Username = "UserToLoginDTOUsername",
-            Password = "UserToLoginDTOPassword"
+            Username = "UserToLoginDtoUsername",
+            Password = "UserToLoginDtoPassword"
         };
 
-        _userToRegisterDTO = new UserToRegisterDTO()
+        _userToRegisterDto = new UserToRegisterDto()
         {
-            Username = "UserToRegisterDTOUsername",
-            Name = "UserToRegisterDTOName",
-            Surname = "UserToRegisterDTOSurname"
+            Username = "UserToRegisterDtoUsername",
+            Name = "UserToRegisterDtoName",
+            Surname = "UserToRegisterDtoSurname",
+            Password = "UserToRegisterDtoPassword"
         };
 
         _userRepository = new Mock<IUserRepository>();
@@ -70,7 +72,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task LoginAsync_WhenSuccess_ReturnsUserToReturnDTOWithToken()
+    public async Task LoginAsync_WhenSuccess_ReturnsUserToReturnDtoWithToken()
     {
         //Arrange
         _userRepository
@@ -78,10 +80,10 @@ public class AuthServiceTests
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _authService.LoginAsync(_userToLoginDTO);
+        var result = await _authService.LoginAsync(_userToLoginDto);
 
         //Assert
-        Assert.IsType<UserToReturnDTO>(result);
+        Assert.IsType<UserToReturnDto>(result);
         Assert.Equal(_userEntity.UserId, result.UserId);
         Assert.NotEmpty(result.Token);
     }
@@ -95,11 +97,11 @@ public class AuthServiceTests
             .ReturnsAsync((User)null!);
 
         //Act & Assert
-        await Assert.ThrowsAsync<UserNotFoundException>(() => _authService.LoginAsync(_userToLoginDTO));
+        await Assert.ThrowsAsync<UserNotFoundException>(() => _authService.LoginAsync(_userToLoginDto));
     }
 
     [Fact]
-    public async Task RegisterAsync_WhenSuccess_RegistersUserThenReturnsUserToReturnDTOWithToken()
+    public async Task RegisterAsync_WhenSuccess_RegistersUserThenReturnsUserToReturnDtoWithToken()
     {
         //Arrange
         _userRepository
@@ -107,10 +109,10 @@ public class AuthServiceTests
             .ReturnsAsync(_userEntity);
 
         //Act
-        var result = await _authService.RegisterAsync(_userToRegisterDTO);
+        var result = await _authService.RegisterAsync(_userToRegisterDto);
 
         //Assert
-        Assert.IsType<UserToReturnDTO>(result);
+        Assert.IsType<UserToReturnDto>(result);
         Assert.Equal(_userEntity.UserId, result.UserId);
         Assert.NotEmpty(result.Token);
     }

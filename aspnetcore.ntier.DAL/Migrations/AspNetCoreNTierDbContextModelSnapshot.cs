@@ -14,9 +14,9 @@ namespace aspnetcore.ntier.DAL.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
 
-            modelBuilder.Entity("aspnetcore.ntier.Entity.Entities.User", b =>
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()

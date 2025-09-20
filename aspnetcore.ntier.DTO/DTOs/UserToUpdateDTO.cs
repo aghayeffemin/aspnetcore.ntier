@@ -1,9 +1,9 @@
-﻿namespace aspnetcore.ntier.DTO.DTOs;
+﻿namespace aspnetcore.ntier.DTO.Dtos;
 
-public class UserToUpdateDTO
+public class UserToUpdateDto
 {
     public int UserId { get; set; }
-    public string Username { get; set; }
-    public string Name { get; set; }
-    public string Surname { get; set; }
+    public required string Username { get; set; }
+    public required string Name { get; set; }
+    public required string Surname { get; set; }
 }

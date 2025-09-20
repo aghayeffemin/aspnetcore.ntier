@@ -1,5 +1,5 @@
 ﻿using aspnetcore.ntier.DAL.Entities;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using AutoMapper;
 
 namespace aspnetcore.ntier.BLL.Utilities.AutoMapperProfiles;
@@ -10,11 +10,11 @@ public static class AutoMapperProfiles
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<User, UserToAddDTO>().ReverseMap();
-            CreateMap<User, UserToUpdateDTO>().ReverseMap();
-            CreateMap<User, UserToRegisterDTO>().ReverseMap();
-            CreateMap<User, UserToReturnDTO>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserToAddDto>().ReverseMap();
+            CreateMap<User, UserToUpdateDto>().ReverseMap();
+            CreateMap<User, UserToRegisterDto>().ReverseMap();
+            CreateMap<User, UserToReturnDto>().ReverseMap();
         }
     }
 }

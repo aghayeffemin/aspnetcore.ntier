@@ -4,8 +4,10 @@
 
 namespace aspnetcore.ntier.DAL.Migrations
 {
-    public partial class InitialMigration : Migration
+    /// <inheritdoc />
+    public partial class Initial : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -15,6 +17,7 @@ namespace aspnetcore.ntier.DAL.Migrations
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Surname = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -25,10 +28,11 @@ namespace aspnetcore.ntier.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "Name", "Surname", "Username" },
-                values: new object[] { 1, "John", "Doe", "johndoe" });
+                columns: new[] { "UserId", "Name", "Password", "Surname", "Username" },
+                values: new object[] { 1, "John", "123", "Doe", "johndoe" });
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

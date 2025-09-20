@@ -1,11 +1,11 @@
-﻿using aspnetcore.ntier.DTO.DTOs;
+﻿using aspnetcore.ntier.DTO.Dtos;
 using FluentValidation;
 
 namespace aspnetcore.ntier.BLL.Validators;
 
-public class UserToLoginDTOValidator : AbstractValidator<UserToLoginDTO>
+public class UserToLoginDtoValidator : AbstractValidator<UserToLoginDto>
 {
-    public UserToLoginDTOValidator()
+    public UserToLoginDtoValidator()
     {
         RuleFor(x => x.Username).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();

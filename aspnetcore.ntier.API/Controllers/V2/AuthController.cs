@@ -1,6 +1,6 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace aspnetcore.ntier.API.Controllers.V2;
@@ -8,21 +8,14 @@ namespace aspnetcore.ntier.API.Controllers.V2;
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("2")]
 [ApiController]
-public class AuthController : ControllerBase
+public class AuthController(IAuthService authService) : ControllerBase
 {
-    private readonly IAuthService _authService;
-
-    public AuthController(IAuthService authService)
-    {
-        _authService = authService;
-    }
-
     [HttpPost("login")]
-    public async Task<IActionResult> Login(UserToLoginDTO userToLoginDTO)
+    public async Task<IActionResult> Login(UserToLoginDto userToLoginDto)
     {
         try
         {
-            var user = await _authService.LoginAsync(userToLoginDTO);
+            var user = await authService.LoginAsync(userToLoginDto);
 
             return Ok(user);
         }
@@ -37,11 +30,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(UserToRegisterDTO userToRegisterDTO)
+    public async Task<IActionResult> Register(UserToRegisterDto userToRegisterDto)
     {
         try
         {
-            return Ok(await _authService.RegisterAsync(userToRegisterDTO));
+            return Ok(await authService.RegisterAsync(userToRegisterDto));
         }
         catch (Exception)
         {
@@ -50,11 +43,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh")]
-    public IActionResult RefreshToken(RefreshTokenDTO refreshTokenDTO)
+    public IActionResult RefreshToken(RefreshTokenDto refreshTokenDto)
     {
         try
         {
-            return Ok(_authService.RefreshToken(refreshTokenDTO));
+            return Ok(authService.RefreshToken(refreshTokenDto));
         }
         catch (Exception)
         {

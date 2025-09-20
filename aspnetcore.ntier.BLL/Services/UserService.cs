@@ -2,83 +2,72 @@
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 
 namespace aspnetcore.ntier.BLL.Services;
 
-public class UserService : IUserService
+public class UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger) : IUserService
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
-    private readonly ILogger<UserService> _logger;
-
-    public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
+    public async Task<List<UserDto>> GetUsersAsync(CancellationToken cancellationToken = default)
     {
-        _userRepository = userRepository;
-        _mapper = mapper;
-        _logger = logger;
+        var usersToReturn = await userRepository.GetListAsync(cancellationToken: cancellationToken);
+        logger.LogInformation("List of {Count} users has been returned", usersToReturn.Count);
+
+        return mapper.Map<List<UserDto>>(usersToReturn);
     }
 
-    public async Task<List<UserDTO>> GetUsersAsync(CancellationToken cancellationToken = default)
+    public async Task<UserDto> GetUserAsync(int userId, CancellationToken cancellationToken = default)
     {
-        var usersToReturn = await _userRepository.GetListAsync(cancellationToken: cancellationToken);
-        _logger.LogInformation("List of {Count} users has been returned", usersToReturn.Count);
-
-        return _mapper.Map<List<UserDTO>>(usersToReturn);
-    }
-
-    public async Task<UserDTO> GetUserAsync(int userId, CancellationToken cancellationToken = default)
-    {
-        _logger.LogInformation("User with userId = {UserId} was requested", userId);
-        var userToReturn = await _userRepository.GetAsync(x => x.UserId == userId, cancellationToken);
+        logger.LogInformation("User with userId = {UserId} was requested", userId);
+        var userToReturn = await userRepository.GetAsync(x => x.UserId == userId, cancellationToken);
 
         if (userToReturn is null)
         {
-            _logger.LogError("User with userId = {UserId} was not found", userId);
+            logger.LogError("User with userId = {UserId} was not found", userId);
             throw new UserNotFoundException();
         }
 
-        return _mapper.Map<UserDTO>(userToReturn);
+        return mapper.Map<UserDto>(userToReturn);
     }
 
-    public async Task<UserDTO> AddUserAsync(UserToAddDTO userToAddDTO)
+    public async Task<UserDto> AddUserAsync(UserToAddDto userToAddDto)
     {
-        userToAddDTO.Username = userToAddDTO.Username.ToLower();
-        var addedUser = await _userRepository.AddAsync(_mapper.Map<User>(userToAddDTO));
+        userToAddDto.Username = userToAddDto.Username.ToLower();
+        var addedUser = await userRepository.AddAsync(mapper.Map<User>(userToAddDto));
 
-        return _mapper.Map<UserDTO>(addedUser);
+        return mapper.Map<UserDto>(addedUser);
     }
 
-    public async Task<UserDTO> UpdateUserAsync(UserToUpdateDTO userToUpdateDTO)
+    public async Task<UserDto> UpdateUserAsync(UserToUpdateDto userToUpdateDto)
     {
-        userToUpdateDTO.Username = userToUpdateDTO.Username.ToLower();
-        var user = await _userRepository.GetAsync(x => x.UserId == userToUpdateDTO.UserId);
+        userToUpdateDto.Username = userToUpdateDto.Username.ToLower();
+        var user = await userRepository.GetAsync(x => x.UserId == userToUpdateDto.UserId);
 
         if (user is null)
         {
-            _logger.LogError("User with userId = {UserId} was not found", userToUpdateDTO.UserId);
+            logger.LogError("User with userId = {UserId} was not found", userToUpdateDto.UserId);
             throw new UserNotFoundException();
         }
 
-        var userToUpdate = _mapper.Map<User>(userToUpdateDTO);
+        var userToUpdate = mapper.Map<User>(userToUpdateDto);
 
-        _logger.LogInformation("User with these properties: {@UserToUpdate} has been updated", userToUpdateDTO);
+        logger.LogInformation("User with these properties: {@UserToUpdate} has been updated", userToUpdateDto);
 
-        return _mapper.Map<UserDTO>(await _userRepository.UpdateUserAsync(userToUpdate));
+        return mapper.Map<UserDto>(await userRepository.UpdateUserAsync(userToUpdate));
     }
 
     public async Task DeleteUserAsync(int userId)
     {
-        var userToDelete = await _userRepository.GetAsync(x => x.UserId == userId);
+        var userToDelete = await userRepository.GetAsync(x => x.UserId == userId);
 
         if (userToDelete is null)
         {
-            _logger.LogError("User with userId = {UserId} was not found", userId);
+            logger.LogError("User with userId = {UserId} was not found", userId);
             throw new UserNotFoundException();
         }
 
-        await _userRepository.DeleteAsync(userToDelete);
+        await userRepository.DeleteAsync(userToDelete);
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace aspnetcore.ntier.DTO.DTOs;
+﻿namespace aspnetcore.ntier.DTO.Dtos;
 
-public class RefreshTokenToReturnDTO
+public class RefreshTokenToReturnDto
 {
-    public string Username { get; set; }
-    public string Token { get; set; }
-    public string RefreshToken { get; set; }
+    public required string Username { get; set; }
+    public required string Token { get; set; }
+    public required string RefreshToken { get; set; }
 }

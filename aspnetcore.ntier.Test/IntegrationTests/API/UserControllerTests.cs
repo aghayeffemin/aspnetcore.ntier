@@ -12,8 +12,6 @@ public class UserControllerTests : IClassFixture<CustomWebApplicationFactory<Pro
     private readonly HttpClient _client;
     private readonly CustomWebApplicationFactory<Program> _factory;
 
-    private const string baseURL = "https://localhost:44338/";
-
     public UserControllerTests(CustomWebApplicationFactory<Program> factory)
     {
         _factory = factory;
@@ -28,7 +26,7 @@ public class UserControllerTests : IClassFixture<CustomWebApplicationFactory<Pro
         {
             var scopedServices = scope.ServiceProvider;
             var db = scopedServices.GetRequiredService<AspNetCoreNTierDbContext>();
-            db.Database.EnsureCreated();
+            await db.Database.EnsureCreatedAsync();
         }
 
         // Act

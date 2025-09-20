@@ -2,8 +2,8 @@
 
 public class JwtSettings
 {
-    public string AccessTokenSecret { get; set; }
-    public string RefreshTokenSecret { get; set; }
+    public required string AccessTokenSecret { get; set; }
+    public required string RefreshTokenSecret { get; set; }
     public double AccessTokenExpirationMinutes { get; set; }
     public double RefreshTokenExpirationMinutes { get; set; }
 }

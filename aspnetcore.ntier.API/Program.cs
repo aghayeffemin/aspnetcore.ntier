@@ -3,7 +3,6 @@ using aspnetcore.ntier.BLL.Utilities.Settings;
 using aspnetcore.ntier.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;

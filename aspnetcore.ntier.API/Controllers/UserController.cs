@@ -1,6 +1,6 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace aspnetcore.ntier.API.Controllers;
@@ -8,21 +8,14 @@ namespace aspnetcore.ntier.API.Controllers;
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1")]
 [ApiController]
-public class UserController : ControllerBase
+public class UserController(IUserService userService) : ControllerBase
 {
-    private readonly IUserService _userService;
-
-    public UserController(IUserService userService)
-    {
-        _userService = userService;
-    }
-
     [HttpGet("getusers")]
     public async Task<IActionResult> GetUsers()
     {
         try
         {
-            return Ok(await _userService.GetUsersAsync());
+            return Ok(await userService.GetUsersAsync());
         }
         catch (Exception)
         {
@@ -35,7 +28,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(await _userService.GetUserAsync(userId, cancellationToken));
+            return Ok(await userService.GetUserAsync(userId, cancellationToken));
         }
         catch (UserNotFoundException)
         {
@@ -48,11 +41,11 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("adduser")]
-    public async Task<IActionResult> AddUser(UserToAddDTO userToAddDTO)
+    public async Task<IActionResult> AddUser(UserToAddDto userToAddDto)
     {
         try
         {
-            return Ok(await _userService.AddUserAsync(userToAddDTO));
+            return Ok(await userService.AddUserAsync(userToAddDto));
         }
         catch (Exception)
         {
@@ -61,11 +54,11 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("updateuser")]
-    public async Task<IActionResult> UpdateUser(UserToUpdateDTO userToUpdateDTO)
+    public async Task<IActionResult> UpdateUser(UserToUpdateDto userToUpdateDto)
     {
         try
         {
-            return Ok(await _userService.UpdateUserAsync(userToUpdateDTO));
+            return Ok(await userService.UpdateUserAsync(userToUpdateDto));
         }
         catch (UserNotFoundException)
         {
@@ -82,7 +75,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            await _userService.DeleteUserAsync(userId);
+            await userService.DeleteUserAsync(userId);
             return Ok();
         }
         catch (UserNotFoundException)

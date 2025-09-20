@@ -1,10 +1,10 @@
-﻿using aspnetcore.ntier.DTO.DTOs;
+﻿using aspnetcore.ntier.DTO.Dtos;
 
 namespace aspnetcore.ntier.BLL.Services.IServices;
 
 public interface IAuthService
 {
-    Task<UserToReturnDTO> LoginAsync(UserToLoginDTO userToLoginDTO);
-    Task<UserToReturnDTO> RegisterAsync(UserToRegisterDTO userToRegisterDTO);
-    RefreshTokenToReturnDTO RefreshToken(RefreshTokenDTO refreshTokenDTO);
+    Task<UserToReturnDto> LoginAsync(UserToLoginDto userToLoginDto);
+    Task<UserToReturnDto> RegisterAsync(UserToRegisterDto userToRegisterDto);
+    RefreshTokenToReturnDto RefreshToken(RefreshTokenDto refreshTokenDto);
 }

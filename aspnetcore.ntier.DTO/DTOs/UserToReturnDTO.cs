@@ -1,11 +1,11 @@
-﻿namespace aspnetcore.ntier.DTO.DTOs;
+﻿namespace aspnetcore.ntier.DTO.Dtos;
 
-public class UserToReturnDTO
+public class UserToReturnDto
 {
     public int UserId { get; set; }
-    public string Username { get; set; }
-    public string Name { get; set; }
-    public string Surname { get; set; }
-    public string Token { get; set; }
-    public string RefreshToken { get; set; }
+    public required string Username { get; set; }
+    public required string Name { get; set; }
+    public required string Surname { get; set; }
+    public required string Token { get; set; }
+    public required string RefreshToken { get; set; }
 }

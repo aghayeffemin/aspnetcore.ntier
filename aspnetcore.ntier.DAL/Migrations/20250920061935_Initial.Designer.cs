@@ -10,21 +10,26 @@ using aspnetcore.ntier.DAL.DataContext;
 namespace aspnetcore.ntier.DAL.Migrations
 {
     [DbContext(typeof(AspNetCoreNTierDbContext))]
-    [Migration("20230122172406_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250920061935_Initial")]
+    partial class Initial
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
 
-            modelBuilder.Entity("aspnetcore.ntier.Entity.Entities.User", b =>
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -45,6 +50,7 @@ namespace aspnetcore.ntier.DAL.Migrations
                         {
                             UserId = 1,
                             Name = "John",
+                            Password = "123",
                             Surname = "Doe",
                             Username = "johndoe"
                         });

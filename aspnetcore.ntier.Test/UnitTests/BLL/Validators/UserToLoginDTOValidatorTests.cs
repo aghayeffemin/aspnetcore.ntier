@@ -1,17 +1,17 @@
 ﻿using aspnetcore.ntier.BLL.Validators;
-using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.Dtos;
 using FluentValidation.TestHelper;
 using Xunit;
 
 namespace aspnetcore.ntier.Test.UnitTests.BLL.Validators;
 
-public class UserToLoginDTOValidatorTests
+public class UserToLoginDtoValidatorTests
 {
-    private readonly UserToLoginDTOValidator _userToLoginDTOValidator;
+    private readonly UserToLoginDtoValidator _userToLoginDtoValidator;
 
-    public UserToLoginDTOValidatorTests()
+    public UserToLoginDtoValidatorTests()
     {
-        _userToLoginDTOValidator = new UserToLoginDTOValidator();
+        _userToLoginDtoValidator = new UserToLoginDtoValidator();
     }
 
     [Theory]
@@ -20,26 +20,26 @@ public class UserToLoginDTOValidatorTests
     [InlineData("", "password")]
     public void Validate_WhenUsernameOrPasswordOrBothEmpty_ThrowsValidationError(string username, string password)
     {
-        var userToLoginDTO = new UserToLoginDTO
+        var userToLoginDto = new UserToLoginDto
         {
             Username = username,
             Password = password
         };
 
-        var result = _userToLoginDTOValidator.TestValidate(userToLoginDTO);
+        var result = _userToLoginDtoValidator.TestValidate(userToLoginDto);
         result.ShouldHaveAnyValidationError();
     }
 
     [Fact]
     public void Validate_WhenUsernameAndPasswordNotEmpty_ShouldNotThrowValidationError()
     {
-        var userToLoginDTO = new UserToLoginDTO
+        var userToLoginDto = new UserToLoginDto
         {
             Username = "username",
             Password = "password"
         };
 
-        var result = _userToLoginDTOValidator.TestValidate(userToLoginDTO);
+        var result = _userToLoginDtoValidator.TestValidate(userToLoginDto);
         result.ShouldNotHaveAnyValidationErrors();
     }
 }
