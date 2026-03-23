@@ -84,7 +84,7 @@ public class AuthService(
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-        var expirationInMinutes = isRefresh ? _jwtSettings.AccessTokenExpirationMinutes : _jwtSettings.RefreshTokenExpirationMinutes;
+        var expirationInMinutes = isRefresh ? _jwtSettings.RefreshTokenExpirationMinutes : _jwtSettings.AccessTokenExpirationMinutes;
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
